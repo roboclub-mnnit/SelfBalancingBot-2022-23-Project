@@ -38,7 +38,6 @@ float newki_pot=0;
   Servo myservo1;  // create servo1 object to control a servo
   Servo myservo2;  // create servo2 object to control a servo
   unsigned long counter2=0;
-
 // servo declaration ends---------------------------------
 
 //mpu variable starts-------------------------------------
@@ -63,9 +62,9 @@ float Kalman1DOutput[]={0,0};
 
 //pid variable starts---------------------------------- 
 
-float Kp=113;
-float Kd=175;
-float Ki=2.15;
+float Kp=112;
+float Kd=316;
+float Ki=1.80;
 
 float Kp_old=Kp;
 float Kd_old=Kd;
@@ -81,7 +80,7 @@ unsigned long dt;
 
 //Declaring global variables for mpu
 
-float rollTarget=-5.3;
+float rollTarget=-4.70;
 float rollActual;
 float rollError=0;
 float rollErrorOld;
@@ -106,7 +105,8 @@ int Old_speed_right=0;
 void setup() {
 Serial.begin(57600);
 // servo setup starts---------------------------------
-
+   
+   
 
    myservo1.attach(10);                 // attaches the servo on pin 10 to the servo object
    myservo2.attach(11);                 // attaches the servo on pin 11 to the servo object
@@ -177,7 +177,15 @@ DDRD =B01101100;                //Setting PORTD of arduino to input and output f
 void loop() {
   
   //potentiometer  loop starts----------------------------------------------------
-
+Serial.print("kp= ");
+   Serial.print(Kp);
+   Serial.print("kd= ");
+   Serial.print(Kd);
+   Serial.print("ki= ");
+   Serial.print(Ki);
+   Serial.print("rolltarget= ");
+   Serial.println(rollTarget);
+   
   pot1=analogRead(A0);            //Storing analog value of potentiometer at A0 in pot1 variable
   pot2=analogRead(A1);            //Storing analog value of potentiometer at A1 in pot2 variable
   pot3=analogRead(A2);            //Storing analog value of potentiometer at A2 in pot3 variable
@@ -250,7 +258,7 @@ if(counter2>200)                      // it gets activated ehen counter2 get hig
   
    if(newKp_bluetooth>10) Kp=newKp_bluetooth;  //putting the condition that the value of newKp_bluetooth will only stored in Kp when it is greater than 10
    if(newKd_bluetooth>10) Kd=newKd_bluetooth;  //putting the condition that the value of newKd_bluetooth will only stored in Kd when it is greater than 10
-   if(newKi_bluetooth>2) Ki=newKi_bluetooth;   //putting the condition that the value of newKi_bluetooth will only stored in Ki when it is greater than 2
+   if(newKi_bluetooth>1.1) Ki=newKi_bluetooth;   //putting the condition that the value of newKi_bluetooth will only stored in Ki when it is greater than 2
 
 //bluetooth loop ends==========================================================================
 
